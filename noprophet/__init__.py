@@ -61,7 +61,7 @@ class NoProphet:
         import matplotlib.pyplot as plt
 
         plt.clf()
-        plt.plot(ds, y, "go", label="Values (y)", alpha=0.5)
+        plt.plot(ds, y, "-", label="Values (y)", alpha=0.5)
         plt.plot(ds, forecast, "-", label="Prediction (yhat)", alpha=0.5)
         plt.legend(loc="best")
         plt.show()
