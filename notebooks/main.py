@@ -19,7 +19,7 @@
 # %%
 import pandas as pd
 
-filename = "datasets/air_passengers.csv"
+filename = "https://github.com/ourownstory/neuralprophet-data/raw/main/datasets/air_passengers.csv"
 df = pd.read_csv(filename)
 
 # %%
@@ -27,7 +27,7 @@ import numpy as np
 import pandas as pd
 from noprophet import to_indices
 
-values = np.random.randn(20)
+values = np.random.randn(10)
 indices = to_indices(values)
 
 df = pd.DataFrame({"ds": indices, "y": values})
