@@ -21,7 +21,8 @@ class NoProphet:
     target_column = "y"
     time_column = "ds"
 
-    model = LinearRegressionModel(1, 1)
+    def __init__(self):
+        self.model = LinearRegressionModel(1, 1)
 
     def fit(self, df: pd.DataFrame, learning_rate: float = 0.01, epochs: int = 10):
         criterion = torch.nn.MSELoss()
