@@ -40,7 +40,6 @@ class NoProphet:
 
             outputs = self.model(inputs)
             loss = criterion(outputs, labels)
-            print(loss)
 
             loss.backward()
 
