@@ -21,7 +21,7 @@ import pandas as pd
 
 filename = "https://github.com/ourownstory/neuralprophet-data/raw/main/datasets/air_passengers.csv"
 df = pd.read_csv(filename)
-df
+df.head()
 
 # %%
 # import numpy as np
@@ -39,8 +39,7 @@ from noprophet import NoProphet
 
 m = NoProphet()
 
-for i in range(10):
-  ds, y = m.fit(df, epochs=1, learning_rate=0.0001)
-  forecast = m.predict(df)
-  # forecast
-  plt = m.plot(to_indices(df["ds"]), y, forecast)
+ds, y = m.fit(df, epochs=10, learning_rate=0.0001)
+
+forecast = m.predict(df)
+m.plot(ds, y, forecast)

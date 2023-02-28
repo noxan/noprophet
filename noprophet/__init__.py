@@ -1,6 +1,8 @@
-import torch
+import matplotlib.dates as plt_dates
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import torch
 from torch.autograd import Variable
 
 
@@ -57,10 +59,10 @@ class NoProphet:
             return forecast.reshape(-1)
 
     def plot(self, ds: np.ndarray, y: np.ndarray, forecast: np.ndarray):
-        import matplotlib.pyplot as plt
-
         plt.clf()
         plt.plot(ds, y, "-", label="Values (y)", alpha=0.5)
         plt.plot(ds, forecast, "-", label="Prediction (yhat)", alpha=0.5)
         plt.legend(loc="best")
+        plt.gca().xaxis.set_major_locator(plt_dates.AutoDateLocator())
+        plt.gcf().autofmt_xdate()
         plt.show()
