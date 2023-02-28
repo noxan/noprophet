@@ -3,4 +3,4 @@ repos:
     rev: v1.14.5
     hooks:
       - id: jupytext
-        args: [--sync]
+        args: [--from, ipynb, --to, "py:percent"]
