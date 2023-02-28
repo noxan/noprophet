@@ -1,0 +1,2 @@
+class NoProphet:
+    pass
