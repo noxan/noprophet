@@ -21,28 +21,26 @@ import pandas as pd
 
 filename = "https://github.com/ourownstory/neuralprophet-data/raw/main/datasets/air_passengers.csv"
 df = pd.read_csv(filename)
+df
 
 # %%
-import numpy as np
-import pandas as pd
-from noprophet import to_indices
+# import numpy as np
+# import pandas as pd
+# from noprophet import to_indices
 
-values = np.random.randn(10)
-indices = to_indices(values)
+# values = np.random.randn(50)
+# indices = to_indices(values)
 
-df = pd.DataFrame({"ds": indices, "y": values})
-df
+# df = pd.DataFrame({"ds": indices, "y": values})
+# plt = df.plot(x="ds", y="y", kind="scatter")
 
 # %%
 from noprophet import NoProphet
 
 m = NoProphet()
 
-ds, y = m.fit(df, epochs=20)
-
-# %%
-forecast = m.predict(df)
-forecast
-
-# %%
-m.plot(to_indices(ds), y, forecast)
+for i in range(10):
+  ds, y = m.fit(df, epochs=1, learning_rate=0.0001)
+  forecast = m.predict(df)
+  # forecast
+  plt = m.plot(to_indices(df["ds"]), y, forecast)
