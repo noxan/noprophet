@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "noprophet"
+version = "0.0.0"
+description = "Personal prototype to learn about time series forecasting and NeuralProphet"
+authors = ["Richard <richard@stromer.org>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.1.0"
+flake8 = "^6.0.0"
+isort = "^5.12.0"
+pyright = "^1.1.295"
+pytest = "^7.2.1"
+pytest-cov = "^4.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
