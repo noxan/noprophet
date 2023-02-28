@@ -4,6 +4,10 @@ import pandas as pd
 from torch.autograd import Variable
 
 
+def to_indices(ds: np.ndarray):
+    return np.array([i for i in range(len(ds))])
+
+
 class LinearRegressionModel(torch.nn.Module):
     def __init__(self, input_dim, output_dim):
         super().__init__()
@@ -27,11 +31,7 @@ class NoProphet:
         y: np.ndarray = df[self.target_column].values  # type: ignore
         # print(ds, y)
 
-        inputs = Variable(
-            torch.from_numpy(
-                np.array([ts for ts in range(len(ds))]).reshape(-1, 1)
-            ).float()
-        )
+        inputs = Variable(torch.from_numpy(to_indices(ds).reshape(-1, 1)).float())
         labels = Variable(torch.from_numpy(y.reshape(-1, 1)).float())
 
         for epoch in range(epochs):
@@ -47,5 +47,20 @@ class NoProphet:
 
             print("epoch {}, loss {}".format(epoch, loss.item()))
 
-    def predict(self):
-        pass
+        return ds, y
+
+    def predict(self, df: pd.DataFrame):
+        with torch.no_grad():
+            ds: np.ndarray = df[self.time_column].values  # type: ignore
+            inputs = Variable(torch.from_numpy(to_indices(ds).reshape(-1, 1)).float())
+            forecast = self.model(inputs).data.numpy()
+            return forecast.reshape(-1)
+
+    def plot(self, ds: np.ndarray, y: np.ndarray, forecast: np.ndarray):
+        import matplotlib.pyplot as plt
+
+        plt.clf()
+        plt.plot(ds, y, "go", label="True data", alpha=0.5)
+        plt.plot(ds, forecast, "--", label="Predictions", alpha=0.5)
+        plt.legend(loc="best")
+        plt.show()
