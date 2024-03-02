@@ -1,3 +1,4 @@
+from sched import scheduler
 import matplotlib.dates as plt_dates
 import matplotlib.pyplot as plt
 import numpy as np
@@ -29,6 +30,7 @@ class NoProphet:
     def fit(self, df: pd.DataFrame, learning_rate: float = 0.01, epochs: int = 10):
         criterion = torch.nn.MSELoss()
         optimizer = torch.optim.SGD(self.model.parameters(), lr=learning_rate)
+        scheduler = torch.optim.lr_scheduler.LinearLR(optimizer, 0.01, 0.0001)
 
         ds: np.ndarray = df[self.time_column].values  # type: ignore
         y: np.ndarray = df[self.target_column].values  # type: ignore
@@ -48,6 +50,8 @@ class NoProphet:
             optimizer.step()
 
             print("epoch {}, loss {}".format(epoch, loss.item()))
+
+            scheduler.step()
 
         return ds, y
 
